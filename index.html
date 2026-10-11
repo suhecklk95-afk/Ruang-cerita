@@ -1,0 +1,233 @@
+
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Ruang Cerita</title>
+
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      background: #fbf5ed;
+      color: #45362f;
+    }
+
+    header {
+      background: #fffaf4;
+      padding: 22px 16px;
+      text-align: center;
+      border-bottom: 1px solid #eaded0;
+    }
+
+    header h1 {
+      margin: 0;
+      color: #a65e43;
+      font-size: 28px;
+    }
+
+    header p {
+      margin-bottom: 0;
+      color: #78695e;
+    }
+
+    main {
+      max-width: 650px;
+      margin: 28px auto;
+      padding: 0 16px;
+    }
+
+    .card {
+      background: white;
+      padding: 20px;
+      border-radius: 16px;
+      margin-bottom: 20px;
+      box-shadow: 0 4px 15px #6040200c;
+    }
+
+    h2 {
+      margin-top: 0;
+      font-size: 20px;
+    }
+
+    input, textarea {
+      display: block;
+      width: 100%;
+      padding: 12px;
+      margin: 12px 0;
+      border: 1px solid #e3d5c8;
+      border-radius: 10px;
+      font: inherit;
+      background: #fffdfb;
+    }
+
+    textarea {
+      min-height: 120px;
+      resize: vertical;
+    }
+
+    button {
+      background: #a65e43;
+      color: white;
+      border: none;
+      border-radius: 10px;
+      padding: 12px 18px;
+      font-size: 15px;
+      cursor: pointer;
+    }
+
+    button:hover {
+      background: #874832;
+    }
+
+    .cerita {
+      border-top: 1px solid #eee3d9;
+      padding-top: 14px;
+      margin-top: 14px;
+      overflow-wrap: anywhere;
+    }
+
+    .cerita h3 {
+      margin-bottom: 6px;
+      color: #a65e43;
+    }
+
+    .waktu {
+      font-size: 12px;
+      color: #8c7b6d;
+    }
+
+    footer {
+      text-align: center;
+      padding: 24px;
+      color: #8c7b6d;
+      font-size: 13px;
+    }
+  </style>
+</head>
+
+<body>
+
+  <header>
+    <h1>☕ Ruang Cerita</h1>
+    <p>Tempat sederhana untuk berbagi isi hati.</p>
+  </header>
+
+  <main>
+    <section class="card">
+      <h2>Bagikan ceritamu ✨</h2>
+
+      <form id="formCerita">
+        <input
+          type="text"
+          id="nama"
+          placeholder="Nama kamu"
+          maxlength="40"
+          required
+        >
+
+        <textarea
+          id="isiCerita"
+          placeholder="Apa yang ingin kamu ceritakan hari ini?"
+          maxlength="2000"
+          required
+        ></textarea>
+
+        <button type="submit">Bagikan Cerita</button>
+      </form>
+    </section>
+
+    <section class="card">
+      <h2>Cerita dari komunitas 💌</h2>
+
+      <div id="daftarCerita"></div>
+    </section>
+  </main>
+
+  <footer>
+    Ruang Cerita © 2026 · Ceritamu punya tempat.
+  </footer>
+
+  <script>
+    const form = document.getElementById("formCerita");
+    const nama = document.getElementById("nama");
+    const isiCerita = document.getElementById("isiCerita");
+    const daftarCerita = document.getElementById("daftarCerita");
+
+    // 1. Mengambil cerita yang tersimpan
+    let ceritaList = JSON.parse(
+      localStorage.getItem("ruangCerita") || "[]"
+    );
+
+    // 2. Menampilkan semua cerita di halaman
+    function tampilkanCerita() {
+      daftarCerita.replaceChildren();
+
+      if (ceritaList.length === 0) {
+        const pesan = document.createElement("p");
+        pesan.textContent =
+          "Belum ada cerita baru. Jadilah yang pertama berbagi!";
+        daftarCerita.appendChild(pesan);
+        return;
+      }
+
+      ceritaList.forEach(function(cerita) {
+        const kartu = document.createElement("article");
+        kartu.className = "cerita";
+
+        const judul = document.createElement("h3");
+        judul.textContent = cerita.nama;
+
+        const isi = document.createElement("p");
+        isi.textContent = cerita.isi;
+
+        const waktu = document.createElement("p");
+        waktu.className = "waktu";
+        waktu.textContent = cerita.waktu;
+
+        kartu.append(judul, isi, waktu);
+        daftarCerita.appendChild(kartu);
+      });
+    }
+
+    // 3. Menyimpan cerita baru
+    form.addEventListener("submit", function(event) {
+      event.preventDefault();
+
+      const namaPengguna = nama.value.trim();
+      const teksCerita = isiCerita.value.trim();
+
+      if (namaPengguna === "" || teksCerita === "") {
+        alert("Nama dan cerita harus diisi!");
+        return;
+      }
+
+      const ceritaBaru = {
+        nama: namaPengguna,
+        isi: teksCerita,
+        waktu: new Date().toLocaleString("id-ID")
+      };
+
+      ceritaList.unshift(ceritaBaru);
+
+      // Mengubah daftar menjadi teks JSON lalu menyimpannya
+      localStorage.setItem(
+        "ruangCerita",
+        JSON.stringify(ceritaList)
+      );
+
+      tampilkanCerita();
+      form.reset();
+    });
+
+    // 4. Memuat cerita saat halaman dibuka
+    tampilkanCerita();
+  </script>
+
+</body>
+</html>
