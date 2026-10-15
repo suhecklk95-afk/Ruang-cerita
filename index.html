@@ -1,233 +1,1574 @@
-
+```html
 <!DOCTYPE html>
-<html lang="id">
+<html lang="id" class="h-full">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Ruang Cerita</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+    <title>WhatsApp Web App Ultra Modern</title>
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="theme-color" content="#00a884">
+    
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    colors: {
+                        wa: {
+                            light: '#00a884',
+                            dark: '#005c4b',
+                            bgLight: '#f0f2f5',
+                            bgDark: '#0b141a',
+                            panelLight: '#ffffff',
+                            panelDark: '#111b21',
+                            chatLight: '#efeae2',
+                            chatDark: '#0b141a',
+                            bubbleOut: '#d9fdd3',
+                            bubbleOutDark: '#005c4b',
+                            bubbleIn: '#ffffff',
+                            bubbleInDark: '#202c33'
+                        }
+                    },
+                    boxShadow: {
+                        'glow': '0 0 15px rgba(0, 168, 132, 0.4)',
+                        'glass': '0 8px 32px 0 rgba(0, 0, 0, 0.2)'
+                    }
+                }
+            }
+        }
+    </script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Fira+Code:wght@400;600&family=Playfair+Display:ital,wght@0,600;1,400&family=Comic+Neue:wght@700&display=swap" rel="stylesheet">
+    <style>
+        body { 
+            font-family: 'Plus Jakarta Sans', sans-serif; 
+            -webkit-tap-highlight-color: transparent; 
+            overscroll-behavior-y: none;
+        }
+        ::-webkit-scrollbar { width: 4px; height: 4px; }
+        ::-webkit-scrollbar-thumb { background: rgba(0,168,132,0.3); border-radius: 4px; }
+        .dark ::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.15); }
+        
+        .glass-panel {
+            background: rgba(255, 255, 255, 0.85);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+        }
+        .dark .glass-panel {
+            background: rgba(17, 27, 33, 0.85);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+        }
 
-  <style>
-    * {
-      box-sizing: border-box;
-    }
+        .phone-notch {
+            position: absolute;
+            top: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 120px;
+            height: 22px;
+            background-color: #1f2937;
+            border-bottom-left-radius: 14px;
+            border-bottom-right-radius: 14px;
+            z-index: 100;
+        }
 
-    body {
-      margin: 0;
-      font-family: Arial, sans-serif;
-      background: #fbf5ed;
-      color: #45362f;
-    }
-
-    header {
-      background: #fffaf4;
-      padding: 22px 16px;
-      text-align: center;
-      border-bottom: 1px solid #eaded0;
-    }
-
-    header h1 {
-      margin: 0;
-      color: #a65e43;
-      font-size: 28px;
-    }
-
-    header p {
-      margin-bottom: 0;
-      color: #78695e;
-    }
-
-    main {
-      max-width: 650px;
-      margin: 28px auto;
-      padding: 0 16px;
-    }
-
-    .card {
-      background: white;
-      padding: 20px;
-      border-radius: 16px;
-      margin-bottom: 20px;
-      box-shadow: 0 4px 15px #6040200c;
-    }
-
-    h2 {
-      margin-top: 0;
-      font-size: 20px;
-    }
-
-    input, textarea {
-      display: block;
-      width: 100%;
-      padding: 12px;
-      margin: 12px 0;
-      border: 1px solid #e3d5c8;
-      border-radius: 10px;
-      font: inherit;
-      background: #fffdfb;
-    }
-
-    textarea {
-      min-height: 120px;
-      resize: vertical;
-    }
-
-    button {
-      background: #a65e43;
-      color: white;
-      border: none;
-      border-radius: 10px;
-      padding: 12px 18px;
-      font-size: 15px;
-      cursor: pointer;
-    }
-
-    button:hover {
-      background: #874832;
-    }
-
-    .cerita {
-      border-top: 1px solid #eee3d9;
-      padding-top: 14px;
-      margin-top: 14px;
-      overflow-wrap: anywhere;
-    }
-
-    .cerita h3 {
-      margin-bottom: 6px;
-      color: #a65e43;
-    }
-
-    .waktu {
-      font-size: 12px;
-      color: #8c7b6d;
-    }
-
-    footer {
-      text-align: center;
-      padding: 24px;
-      color: #8c7b6d;
-      font-size: 13px;
-    }
-  </style>
+        .filter-sepia { filter: sepia(0.8); }
+        .filter-cyber { filter: hue-rotate(180deg) contrast(1.2) saturate(1.5); }
+        .filter-vintage { filter: sepia(0.4) contrast(1.1) brightness(0.9); }
+        .filter-grayscale { filter: grayscale(1); }
+        .filter-vivid { filter: saturate(2) contrast(1.1); }
+    </style>
 </head>
+<body class="h-[100dvh] w-screen bg-wa-bgLight dark:bg-wa-bgDark text-gray-800 dark:text-gray-100 overflow-hidden flex flex-col selection:bg-wa-light selection:text-white">
 
-<body>
+    <div id="toast" class="fixed top-5 left-1/2 transform -translate-x-1/2 z-50 hidden bg-gray-900/90 dark:bg-white dark:text-gray-900 text-white text-xs font-bold px-4 py-2.5 rounded-full shadow-lg backdrop-blur transition-all duration-300">
+        Notifikasi WhatsApp
+    </div>
 
-  <header>
-    <h1>☕ Ruang Cerita</h1>
-    <p>Tempat sederhana untuk berbagi isi hati.</p>
-  </header>
+    <div id="mobileControlBar" class="hidden md:flex items-center justify-center gap-3 py-2 bg-white/80 dark:bg-gray-900/80 backdrop-blur border-b border-gray-200 dark:border-gray-800 text-xs font-semibold shrink-0 z-40">
+        <span class="text-gray-500 dark:text-gray-400"><i class="fa-solid fa-laptop-mobile mr-1"></i> Mode Tampilan:</span>
+        <button onclick="setAppViewMode('full')" id="btnFullMode" class="px-3 py-1 bg-wa-light text-white rounded-full shadow-sm transition">Layar Penuh</button>
+        <button onclick="setAppViewMode('frame')" id="btnFrameMode" class="px-3 py-1 bg-gray-200 dark:bg-gray-800 text-gray-700 dark:text-gray-300 rounded-full hover:bg-gray-300 transition">Bingkai Simulasi HP</button>
+        <button onclick="openSmartCameraModal()" class="px-3 py-1 bg-purple-600 text-white rounded-full hover:bg-purple-700 transition flex items-center gap-1"><i class="fa-solid fa-camera-retro"></i> Kamera Studio</button>
+        <button onclick="startScreenShare()" class="px-3 py-1 bg-blue-600 text-white rounded-full hover:bg-blue-700 transition flex items-center gap-1"><i class="fa-solid fa-desktop"></i> Bagikan Layar</button>
+    </div>
 
-  <main>
-    <section class="card">
-      <h2>Bagikan ceritamu ✨</h2>
+    <div id="appWrapper" class="flex-1 w-full flex items-center justify-center overflow-hidden relative">
+        <div id="mainAppBox" class="h-full w-full flex flex-col relative transition-all duration-300">
+            <div id="notch" class="phone-notch hidden"></div>
 
-      <form id="formCerita">
-        <input
-          type="text"
-          id="nama"
-          placeholder="Nama kamu"
-          maxlength="40"
-          required
-        >
+            <!-- ================= LOGIN VIEW (SIM CARD SIMULATION) ================= -->
+            <div id="loginView" class="absolute inset-0 z-50 bg-gradient-to-br from-emerald-900/10 via-wa-bgLight to-emerald-600/10 dark:from-wa-bgDark dark:via-wa-bgDark dark:to-emerald-950/40 flex items-center justify-center p-4 overflow-y-auto">
+                <div class="glass-panel w-full max-w-sm sm:max-w-md rounded-3xl shadow-glass p-6 sm:p-8 border border-white/40 dark:border-gray-700/50 my-auto relative overflow-hidden">
+                    <div class="absolute -top-12 -right-12 w-32 h-32 bg-wa-light/20 rounded-full blur-2xl"></div>
+                    <div class="text-center mb-6 relative">
+                        <div class="inline-flex items-center justify-center w-16 h-16 bg-gradient-to-tr from-wa-light to-emerald-400 text-white rounded-2xl text-3xl mb-3 shadow-glow ring-4 ring-emerald-500/20">
+                            <i class="fa-brands fa-whatsapp"></i>
+                        </div>
+                        <h1 class="text-2xl font-black text-gray-900 dark:text-white tracking-tight">WhatsApp Web App</h1>
+                        <p class="text-xs text-gray-500 dark:text-gray-400 mt-1 font-medium">Kartu SIM Virtual & Fitur Canggih</p>
+                    </div>
 
-        <textarea
-          id="isiCerita"
-          placeholder="Apa yang ingin kamu ceritakan hari ini?"
-          maxlength="2000"
-          required
-        ></textarea>
+                    <div class="space-y-4">
+                        <div>
+                            <label class="block text-[11px] font-bold uppercase tracking-wider text-gray-600 dark:text-gray-400 mb-1.5">Pilih Provider SIM Card</label>
+                            <select id="simProvider" class="w-full px-4 py-2.5 rounded-xl border border-gray-300 dark:border-gray-600 bg-white/70 dark:bg-gray-800/80 text-gray-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-wa-light text-xs sm:text-sm font-medium">
+                                <option value="Telkomsel (+62 812)">Telkomsel (+62 812)</option>
+                                <option value="Indosat Ooredoo (+62 856)">Indosat Ooredoo (+62 856)</option>
+                                <option value="XL Axiata (+62 819)">XL Axiata (+62 819)</option>
+                                <option value="Smartfren (+62 881)">Smartfren (+62 881)</option>
+                            </select>
+                        </div>
 
-        <button type="submit">Bagikan Cerita</button>
-      </form>
-    </section>
+                        <div>
+                            <label class="block text-[11px] font-bold uppercase tracking-wider text-gray-600 dark:text-gray-400 mb-1.5">Nomor Telepon SIM</label>
+                            <div class="flex shadow-sm rounded-xl overflow-hidden border border-gray-300 dark:border-gray-600">
+                                <span class="inline-flex items-center px-4 bg-gray-100 dark:bg-gray-700/80 text-gray-500 dark:text-gray-300 font-bold text-xs sm:text-sm">+62</span>
+                                <input type="tel" id="phoneNumberInput" placeholder="81234567890" class="flex-1 px-3.5 py-2.5 bg-white/80 dark:bg-gray-800/80 text-gray-900 dark:text-white focus:outline-none text-xs sm:text-sm font-medium" value="81299998888">
+                            </div>
+                        </div>
 
-    <section class="card">
-      <h2>Cerita dari komunitas 💌</h2>
+                        <div>
+                            <label class="block text-[11px] font-bold uppercase tracking-wider text-gray-600 dark:text-gray-400 mb-1.5">Nama Profil Kamu</label>
+                            <input type="text" id="profileNameInput" placeholder="Nama Anda" value="Pengguna Canggih" class="w-full px-4 py-2.5 rounded-xl border border-gray-300 dark:border-gray-600 bg-white/70 dark:bg-gray-800/80 text-gray-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-wa-light text-xs sm:text-sm font-medium">
+                        </div>
 
-      <div id="daftarCerita"></div>
-    </section>
-  </main>
+                        <button onclick="handleSimLogin()" class="w-full py-3.5 bg-gradient-to-r from-wa-light to-emerald-600 hover:from-emerald-600 hover:to-wa-light active:scale-98 text-white font-bold rounded-xl shadow-glow transition duration-200 flex items-center justify-center space-x-2 text-xs sm:text-sm mt-2">
+                            <i class="fa-solid fa-sim-card text-base"></i>
+                            <span>Verifikasi SIM & Masuk App</span>
+                        </button>
+                    </div>
+                </div>
+            </div>
 
-  <footer>
-    Ruang Cerita © 2026 · Ceritamu punya tempat.
-  </footer>
+            <!-- ================= MAIN CHAT INTERFACE ================= -->
+            <div id="mainView" class="hidden h-full w-full flex flex-row relative overflow-hidden bg-wa-panelLight dark:bg-wa-panelDark">
+                
+                <!-- SIDEBAR: Chat List & Profile -->
+                <div id="sidebarSection" class="w-full md:w-80 lg:w-96 flex flex-col border-r border-gray-200 dark:border-gray-800 bg-white dark:bg-wa-panelDark h-full overflow-hidden shrink-0">
+                    
+                    <!-- Sidebar Header -->
+                    <div class="h-16 px-4 bg-gray-100/90 dark:bg-gray-800/90 backdrop-blur flex items-center justify-between border-b border-gray-200 dark:border-gray-800 shrink-0">
+                        <div class="flex items-center space-x-3 cursor-pointer min-w-0" onclick="openSettingsModalTab('profile')">
+                            <div class="relative">
+                                <img id="userAvatar" src="https://placehold.co/100x100/00a884/ffffff?text=ME" class="w-10 h-10 rounded-full object-cover shadow-sm ring-2 ring-wa-light/50 shrink-0" alt="Avatar">
+                                <span class="absolute bottom-0 right-0 w-3 h-3 bg-emerald-500 rounded-full border-2 border-white dark:border-gray-800"></span>
+                            </div>
+                            <div class="min-w-0">
+                                <h3 id="currentUserNameDisplay" class="font-bold text-xs sm:text-sm text-gray-900 dark:text-white truncate">Pengguna</h3>
+                                <span id="currentUserStatusDisplay" class="text-[10px] text-emerald-600 dark:text-emerald-400 font-semibold block truncate">Ada di WhatsApp</span>
+                            </div>
+                        </div>
+                        <div class="flex items-center space-x-1 text-gray-600 dark:text-gray-300 text-sm">
+                            <button onclick="switchSidebarView('status')" title="Status / Story" class="hover:bg-gray-200 dark:hover:bg-gray-700 p-2 rounded-full transition text-emerald-600 dark:text-emerald-400 relative">
+                                <i class="fa-solid fa-circle-notch text-base"></i>
+                                <span class="absolute top-1 right-1 w-2 h-2 bg-emerald-500 rounded-full ring-2 ring-white dark:ring-gray-800"></span>
+                            </button>
+                            <button onclick="openSmartCameraModal()" title="Kamera Unik" class="hover:bg-gray-200 dark:hover:bg-gray-700 p-2 rounded-full transition text-purple-600 dark:text-purple-400"><i class="fa-solid fa-camera-retro text-base"></i></button>
+                            <button onclick="openNewGroupModal()" title="Buat Grup Baru" class="hover:bg-gray-200 dark:hover:bg-gray-700 p-2 rounded-full transition text-emerald-600 dark:text-emerald-400"><i class="fa-solid fa-users-rectangle text-base"></i></button>
+                            <button onclick="openAddContactModal()" title="Tambah Kontak Baru" class="hover:bg-gray-200 dark:hover:bg-gray-700 p-2 rounded-full transition text-wa-light"><i class="fa-solid fa-user-plus text-base"></i></button>
+                            <button onclick="toggleDarkMode()" title="Ganti Tema" class="hover:bg-gray-200 dark:hover:bg-gray-700 p-2 rounded-full transition"><i id="themeIcon" class="fa-solid fa-moon"></i></button>
+                            <button onclick="openSettingsModal()" title="Pengaturan Lengkap" class="hover:bg-gray-200 dark:hover:bg-gray-700 p-2 rounded-full transition text-wa-light"><i class="fa-solid fa-gear"></i></button>
+                        </div>
+                    </div>
 
-  <script>
-    const form = document.getElementById("formCerita");
-    const nama = document.getElementById("nama");
-    const isiCerita = document.getElementById("isiCerita");
-    const daftarCerita = document.getElementById("daftarCerita");
+                    <!-- Navigation Tabs for Chat & Status -->
+                    <div class="flex border-b border-gray-200 dark:border-gray-800 bg-white dark:bg-wa-panelDark shrink-0">
+                        <button id="tabChatBtn" onclick="switchSidebarView('chats')" class="flex-1 py-2.5 font-bold text-xs text-wa-light border-b-2 border-wa-light transition flex items-center justify-center gap-1.5">
+                            <i class="fa-solid fa-message"></i> Chat
+                        </button>
+                        <button id="tabStatusBtn" onclick="switchSidebarView('status')" class="flex-1 py-2.5 font-bold text-xs text-gray-500 dark:text-gray-400 border-b-2 border-transparent transition flex items-center justify-center gap-1.5 hover:text-wa-light">
+                            <i class="fa-solid fa-circle-notch"></i> Status
+                        </button>
+                    </div>
 
-    // 1. Mengambil cerita yang tersimpan
-    let ceritaList = JSON.parse(
-      localStorage.getItem("ruangCerita") || "[]"
-    );
+                    <!-- Search Bar -->
+                    <div id="searchBarContainer" class="p-3 bg-white dark:bg-wa-panelDark border-b border-gray-100 dark:border-gray-800 shrink-0 flex items-center gap-2">
+                        <div class="flex-1 flex items-center gap-2 px-3 py-1.5 bg-gray-100 dark:bg-gray-800 rounded-xl">
+                            <i class="fa-solid fa-magnifying-glass text-gray-400 text-xs"></i>
+                            <input type="text" id="searchContact" onkeyup="filterContacts()" placeholder="Cari kontak..." class="w-full bg-transparent text-xs text-gray-900 dark:text-white focus:outline-none">
+                        </div>
+                    </div>
 
-    // 2. Menampilkan semua cerita di halaman
-    function tampilkanCerita() {
-      daftarCerita.replaceChildren();
+                    <!-- Contact List -->
+                    <div id="contactList" class="flex-1 overflow-y-auto divide-y divide-gray-100/60 dark:divide-gray-800/60">
+                        <!-- Populated dynamically -->
+                    </div>
 
-      if (ceritaList.length === 0) {
-        const pesan = document.createElement("p");
-        pesan.textContent =
-          "Belum ada cerita baru. Jadilah yang pertama berbagi!";
-        daftarCerita.appendChild(pesan);
-        return;
-      }
+                    <!-- Status List Container (Hidden by default) -->
+                    <div id="statusList" class="hidden flex-1 overflow-y-auto divide-y divide-gray-100/60 dark:divide-gray-800/60 p-2">
+                        <div class="flex items-center p-3 hover:bg-gray-100 dark:hover:bg-gray-800/60 rounded-2xl cursor-pointer transition mb-2" onclick="openAddStatusModal()">
+                            <div class="relative mr-3 shrink-0">
+                                <img id="myStatusAvatar" src="https://placehold.co/100x100/00a884/ffffff?text=ME" class="w-12 h-12 rounded-full object-cover ring-2 ring-wa-light">
+                                <span class="absolute bottom-0 right-0 w-4 h-4 bg-wa-light text-white rounded-full flex items-center justify-center text-[10px] font-bold ring-2 ring-white dark:ring-gray-800"><i class="fa-solid fa-plus"></i></span>
+                            </div>
+                            <div class="flex-1 min-w-0">
+                                <h4 class="font-bold text-xs sm:text-sm text-gray-900 dark:text-white">Status Saya</h4>
+                                <p id="myStatusText" class="text-xs text-gray-500 dark:text-gray-400 truncate">Ketuk untuk menambahkan pembaruan status</p>
+                            </div>
+                        </div>
 
-      ceritaList.forEach(function(cerita) {
-        const kartu = document.createElement("article");
-        kartu.className = "cerita";
+                        <div class="px-2 py-1.5 text-[10px] font-bold text-gray-400 uppercase tracking-wider">Pembaruan Terkini</div>
+                        
+                        <div id="recentStatusContainer" class="space-y-1">
+                            <!-- Dynamically added statuses -->
+                        </div>
+                    </div>
+                </div>
 
-        const judul = document.createElement("h3");
-        judul.textContent = cerita.nama;
+                <!-- CHAT AREA -->
+                <div id="chatAreaSection" class="hidden md:flex flex-1 flex-col bg-wa-chatLight dark:bg-wa-chatDark relative h-full min-w-0 overflow-hidden">
+                    
+                    <!-- Chat Header -->
+                    <div class="h-16 px-4 bg-gray-100/90 dark:bg-gray-800/90 backdrop-blur flex items-center justify-between border-b border-gray-200 dark:border-gray-800 shrink-0 z-10">
+                        <div class="flex items-center space-x-3 min-w-0 cursor-pointer">
+                            <button onclick="event.stopPropagation(); backToSidebar()" class="md:hidden text-gray-600 dark:text-gray-300 pr-1 py-1 hover:text-wa-light"><i class="fa-solid fa-arrow-left text-lg"></i></button>
+                            <img id="activeChatAvatar" src="https://placehold.co/100x100/ccc/fff?text=?" class="w-10 h-10 rounded-full object-cover ring-2 ring-wa-light/30 shrink-0" alt="Active Chat">
+                            <div class="min-w-0">
+                                <h3 id="activeChatName" class="font-bold text-xs sm:text-sm text-gray-900 dark:text-white truncate">Pilih Obrolan</h3>
+                                <span id="activeChatStatus" class="text-[10px] text-emerald-600 dark:text-emerald-400 font-semibold block truncate">Online</span>
+                            </div>
+                        </div>
+                        <div class="flex items-center space-x-1.5 text-gray-600 dark:text-gray-300 text-sm">
+                            <button onclick="quickToggleTextFont()" title="Ganti Gaya Teks & Font" class="p-2 hover:bg-gray-200 dark:hover:bg-gray-700 rounded-full transition text-amber-500">
+                                <i class="fa-solid fa-font"></i>
+                            </button>
+                            <button onclick="startScreenShare()" title="Bagikan Layar" class="p-2 hover:bg-gray-200 dark:hover:bg-gray-700 rounded-full transition text-blue-500"><i class="fa-solid fa-desktop"></i></button>
+                            <button onclick="openSmartCameraModal()" title="Kirim Foto Kamera Studio" class="p-2 hover:bg-gray-200 dark:hover:bg-gray-700 rounded-full transition text-purple-600 dark:text-purple-400"><i class="fa-solid fa-camera"></i></button>
+                            <button onclick="shareCurrentLocation()" title="Bagikan Lokasi Saya" class="p-2 hover:bg-gray-200 dark:hover:bg-gray-700 rounded-full transition text-red-500"><i class="fa-solid fa-location-dot"></i></button>
+                            <button onclick="triggerVideoCall()" title="Video Call" class="p-2 hover:bg-gray-200 dark:hover:bg-gray-700 rounded-full transition"><i class="fa-solid fa-video"></i></button>
+                            <button onclick="triggerVoiceCall()" title="Voice Call" class="p-2 hover:bg-gray-200 dark:hover:bg-gray-700 rounded-full transition"><i class="fa-solid fa-phone"></i></button>
+                            <button onclick="clearCurrentChat()" title="Bersihkan Chat" class="p-2 hover:bg-gray-200 dark:hover:bg-gray-700 rounded-full transition"><i class="fa-solid fa-broom"></i></button>
+                            <button onclick="deleteCurrentContact()" title="Hapus Kontak Ini" class="p-2 hover:bg-red-100 text-red-500 rounded-full transition"><i class="fa-solid fa-user-minus"></i></button>
+                        </div>
+                    </div>
 
-        const isi = document.createElement("p");
-        isi.textContent = cerita.isi;
+                    <!-- Messages Container -->
+                    <div id="messagesContainer" class="flex-1 overflow-y-auto p-4 space-y-3 bg-[radial-gradient(#d1d5db_1px,transparent_1px)] dark:bg-[radial-gradient(#1f2937_1px,transparent_1px)] [background-size:18px_18px] min-h-0">
+                        <div class="flex items-center justify-center h-full">
+                            <div class="text-center p-6 glass-panel rounded-2xl shadow-glass max-w-xs border border-white/40 dark:border-gray-700/50">
+                                <i class="fa-brands fa-whatsapp text-5xl text-wa-light mb-3"></i>
+                                <h4 class="font-bold text-sm text-gray-800 dark:text-white mb-1">WhatsApp Web 2026</h4>
+                                <p class="text-gray-500 dark:text-gray-400 font-medium text-xs">Pilih kontak atau buat grup untuk mengobrol.</p>
+                            </div>
+                        </div>
+                    </div>
 
-        const waktu = document.createElement("p");
-        waktu.className = "waktu";
-        waktu.textContent = cerita.waktu;
+                    <!-- Voice Recorder Bar -->
+                    <div id="voiceRecorderBar" class="hidden p-3 bg-red-500/10 dark:bg-red-950/30 border-t border-red-500/20 flex items-center justify-between gap-3 animate-pulse shrink-0">
+                        <div class="flex items-center gap-2 text-xs font-bold text-red-600 dark:text-red-400">
+                            <i class="fa-solid fa-microphone-lines text-base animate-bounce"></i>
+                            <span>Merekam Suara... <span id="recordTimer">00:00</span></span>
+                        </div>
+                        <div class="flex items-center gap-2">
+                            <button onclick="cancelVoiceRecording()" class="px-3 py-1.5 bg-gray-200 dark:bg-gray-700 text-gray-700 dark:text-gray-300 rounded-xl text-xs font-semibold">Batal</button>
+                            <button onclick="stopAndSendVoiceRecording()" class="px-3 py-1.5 bg-red-600 text-white rounded-xl text-xs font-semibold shadow">Kirim Suara</button>
+                        </div>
+                    </div>
 
-        kartu.append(judul, isi, waktu);
-        daftarCerita.appendChild(kartu);
-      });
-    }
+                    <!-- Hidden Inputs -->
+                    <input type="file" id="attachmentInput" class="hidden" accept="image/*,video/*,application/pdf" onchange="handleFileAttachment(event)">
+                    <input type="file" id="avatarFileInput" class="hidden" accept="image/*" onchange="handleAvatarUpload(event)">
+                    <input type="file" id="customWallpaperInput" class="hidden" accept="image/*" onchange="handleCustomWallpaperUpload(event)">
 
-    // 3. Menyimpan cerita baru
-    form.addEventListener("submit", function(event) {
-      event.preventDefault();
+                    <!-- Emoji Picker Box -->
+                    <div id="emojiPicker" class="hidden bg-white dark:bg-wa-panelDark p-3 border-t border-gray-200 dark:border-gray-800 flex flex-wrap gap-2 text-xl max-h-36 overflow-y-auto shrink-0 shadow-lg">
+                        <button onclick="addEmoji('😀')" class="hover:scale-125 transition">😀</button>
+                        <button onclick="addEmoji('😂')" class="hover:scale-125 transition">😂</button>
+                        <button onclick="addEmoji('😍')" class="hover:scale-125 transition">😍</button>
+                        <button onclick="addEmoji('🔥')" class="hover:scale-125 transition">🔥</button>
+                        <button onclick="addEmoji('👍')" class="hover:scale-125 transition">👍</button>
+                        <button onclick="addEmoji('🙏')" class="hover:scale-125 transition">🙏</button>
+                        <button onclick="addEmoji('❤️')" class="hover:scale-125 transition">❤️</button>
+                        <button onclick="addEmoji('🎉')" class="hover:scale-125 transition">🎉</button>
+                        <button onclick="addEmoji('😎')" class="hover:scale-125 transition">😎</button>
+                    </div>
 
-      const namaPengguna = nama.value.trim();
-      const teksCerita = isiCerita.value.trim();
+                    <!-- Chat Input Footer -->
+                    <div id="chatInputArea" class="p-3 bg-gray-100/90 dark:bg-gray-800/90 backdrop-blur flex items-center space-x-2 border-t border-gray-200 dark:border-gray-800 shrink-0 hidden">
+                        <button onclick="toggleEmojiPicker()" class="text-gray-500 dark:text-gray-400 hover:text-wa-light text-lg p-1.5"><i class="fa-regular fa-face-smile"></i></button>
+                        <button onclick="attachFileDialog()" class="text-gray-500 dark:text-gray-400 hover:text-wa-light text-lg p-1.5" title="Lampirkan File"><i class="fa-solid fa-paperclip"></i></button>
+                        <button onclick="openSmartCameraModal()" class="text-purple-600 dark:text-purple-400 hover:opacity-80 text-lg p-1.5" title="Kamera Unik Studio"><i class="fa-solid fa-camera"></i></button>
 
-      if (namaPengguna === "" || teksCerita === "") {
-        alert("Nama dan cerita harus diisi!");
-        return;
-      }
+                        <input type="text" id="messageInput" onkeypress="handleMessageKeypress(event)" placeholder="Ketik pesan..." class="flex-1 px-4 py-2.5 rounded-xl bg-white dark:bg-gray-700/80 text-gray-900 dark:text-white border border-gray-300/80 dark:border-gray-600/80 focus:outline-none focus:ring-2 focus:ring-wa-light text-xs sm:text-sm font-medium">
 
-      const ceritaBaru = {
-        nama: namaPengguna,
-        isi: teksCerita,
-        waktu: new Date().toLocaleString("id-ID")
-      };
+                        <button id="micBtn" onclick="toggleVoiceRecording()" class="w-10 h-10 bg-gray-200 dark:bg-gray-700 hover:bg-wa-light hover:text-white dark:hover:bg-wa-light text-gray-600 dark:text-gray-300 rounded-full flex items-center justify-center transition shrink-0" title="Rekam Pesan Suara">
+                            <i class="fa-solid fa-microphone text-sm"></i>
+                        </button>
+                        
+                        <button onclick="sendMessage()" class="w-10 h-10 bg-gradient-to-tr from-wa-light to-emerald-500 hover:from-emerald-500 hover:to-wa-light active:scale-90 text-white rounded-full flex items-center justify-center shadow-glow transition shrink-0">
+                            <i class="fa-solid fa-paper-plane text-xs"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 
-      ceritaList.unshift(ceritaBaru);
+    <!-- Modal Tambah Status Baru -->
+    <div id="addStatusModal" class="fixed inset-0 z-50 bg-black/80 backdrop-blur-sm hidden flex items-center justify-center p-4">
+        <div class="bg-white dark:bg-wa-panelDark w-full max-w-sm rounded-3xl p-5 shadow-2xl border border-gray-200 dark:border-gray-700 text-xs sm:text-sm">
+            <div class="flex justify-between items-center mb-3">
+                <h3 class="font-bold text-gray-900 dark:text-white flex items-center gap-2 text-sm sm:text-base">
+                    <i class="fa-solid fa-circle-notch text-wa-light"></i> Tambah Status Baru
+                </h3>
+                <button onclick="closeAddStatusModal()" class="text-gray-500 p-1"><i class="fa-solid fa-xmark text-lg"></i></button>
+            </div>
 
-      // Mengubah daftar menjadi teks JSON lalu menyimpannya
-      localStorage.setItem(
-        "ruangCerita",
-        JSON.stringify(ceritaList)
-      );
+            <div class="space-y-3">
+                <div>
+                    <label class="block text-[11px] font-bold text-gray-600 dark:text-gray-400 mb-1">Pesan Status Teks</label>
+                    <textarea id="newStatusText" rows="3" placeholder="Tuliskan apa yang Anda pikirkan..." class="w-full px-3.5 py-2 rounded-xl border border-gray-300 dark:border-gray-600 bg-gray-50 dark:bg-gray-800 text-gray-900 dark:text-white focus:ring-2 focus:ring-wa-light text-xs sm:text-sm font-medium"></textarea>
+                </div>
+            </div>
 
-      tampilkanCerita();
-      form.reset();
-    });
+            <div class="mt-4 flex justify-end space-x-2">
+                <button onclick="closeAddStatusModal()" class="px-3.5 py-2 bg-gray-200 dark:bg-gray-700 text-gray-700 dark:text-gray-300 rounded-xl font-bold text-xs">Batal</button>
+                <button onclick="saveNewStatus()" class="px-4 py-2 bg-wa-light text-white rounded-xl font-bold text-xs hover:bg-emerald-600 shadow">Unggah Status</button>
+            </div>
+        </div>
+    </div>
 
-    // 4. Memuat cerita saat halaman dibuka
-    tampilkanCerita();
-  </script>
+    <!-- Modal Tambah Kontak Baru -->
+    <div id="addContactModal" class="fixed inset-0 z-50 bg-black/70 hidden flex items-center justify-center p-4">
+        <div class="bg-white dark:bg-wa-panelDark w-full max-w-sm rounded-3xl p-5 shadow-2xl border border-gray-200 dark:border-gray-700 text-xs sm:text-sm">
+            <div class="flex justify-between items-center mb-3">
+                <h3 class="font-bold text-gray-900 dark:text-white flex items-center gap-2 text-sm sm:text-base">
+                    <i class="fa-solid fa-user-plus text-wa-light"></i> Tambah Kontak Baru
+                </h3>
+                <button onclick="closeAddContactModal()" class="text-gray-500 p-1"><i class="fa-solid fa-xmark text-lg"></i></button>
+            </div>
 
+            <div class="space-y-3">
+                <div>
+                    <label class="block text-[11px] font-bold text-gray-600 dark:text-gray-400 mb-1">Nama Kontak</label>
+                    <input type="text" id="newContactName" placeholder="Contoh: Budi Prasetyo" class="w-full px-3.5 py-2 rounded-xl border border-gray-300 dark:border-gray-600 bg-gray-50 dark:bg-gray-800 text-gray-900 dark:text-white focus:ring-2 focus:ring-wa-light text-xs sm:text-sm font-medium">
+                </div>
+                <div>
+                    <label class="block text-[11px] font-bold text-gray-600 dark:text-gray-400 mb-1">Nomor Telepon</label>
+                    <input type="tel" id="newContactPhone" placeholder="Contoh: +62 812-3456-7890" class="w-full px-3.5 py-2 rounded-xl border border-gray-300 dark:border-gray-600 bg-gray-50 dark:bg-gray-800 text-gray-900 dark:text-white focus:ring-2 focus:ring-wa-light text-xs sm:text-sm font-medium">
+                </div>
+            </div>
+
+            <div class="mt-4 flex justify-end space-x-2">
+                <button onclick="closeAddContactModal()" class="px-3.5 py-2 bg-gray-200 dark:bg-gray-700 text-gray-700 dark:text-gray-300 rounded-xl font-bold text-xs">Batal</button>
+                <button onclick="saveNewContact()" class="px-4 py-2 bg-wa-light text-white rounded-xl font-bold text-xs hover:bg-emerald-600 shadow">Simpan Kontak</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal Buat Grup Baru -->
+    <div id="newGroupModal" class="fixed inset-0 z-50 bg-black/70 hidden flex items-center justify-center p-4">
+        <div class="bg-white dark:bg-wa-panelDark w-full max-w-sm rounded-3xl p-5 shadow-2xl border border-gray-200 dark:border-gray-700 text-xs sm:text-sm">
+            <div class="flex justify-between items-center mb-3">
+                <h3 class="font-bold text-gray-900 dark:text-white flex items-center gap-2 text-sm sm:text-base">
+                    <i class="fa-solid fa-users-rectangle text-wa-light"></i> Buat Grup Chat Baru
+                </h3>
+                <button onclick="closeNewGroupModal()" class="text-gray-500 p-1"><i class="fa-solid fa-xmark text-lg"></i></button>
+            </div>
+
+            <div class="space-y-3">
+                <div>
+                    <label class="block text-[11px] font-bold text-gray-600 dark:text-gray-400 mb-1">Nama Grup</label>
+                    <input type="text" id="newGroupName" placeholder="Contoh: Tim Proyek 2026" class="w-full px-3.5 py-2 rounded-xl border border-gray-300 dark:border-gray-600 bg-gray-50 dark:bg-gray-800 text-gray-900 dark:text-white focus:ring-2 focus:ring-wa-light text-xs sm:text-sm font-medium">
+                </div>
+                <div>
+                    <label class="block text-[11px] font-bold text-gray-600 dark:text-gray-400 mb-1">Deskripsi Grup</label>
+                    <input type="text" id="newGroupDesc" placeholder="Tujuan grup ini..." class="w-full px-3.5 py-2 rounded-xl border border-gray-300 dark:border-gray-600 bg-gray-50 dark:bg-gray-800 text-gray-900 dark:text-white focus:ring-2 focus:ring-wa-light text-xs sm:text-sm font-medium">
+                </div>
+            </div>
+
+            <div class="mt-4 flex justify-end space-x-2">
+                <button onclick="closeNewGroupModal()" class="px-3.5 py-2 bg-gray-200 dark:bg-gray-700 text-gray-700 dark:text-gray-300 rounded-xl font-bold text-xs">Batal</button>
+                <button onclick="createNewGroup()" class="px-4 py-2 bg-wa-light text-white rounded-xl font-bold text-xs hover:bg-emerald-600 shadow">Buat Grup</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal Pengaturan Super Lengkap & Komplit -->
+    <div id="settingsModal" class="fixed inset-0 z-50 bg-black/75 backdrop-blur-sm hidden flex items-center justify-center p-3 sm:p-5">
+        <div class="bg-white dark:bg-wa-panelDark w-full max-w-3xl rounded-3xl shadow-2xl border border-gray-200 dark:border-gray-800 flex flex-col md:flex-row h-[88vh] max-h-[660px] overflow-hidden text-xs sm:text-sm">
+            
+            <!-- Tab Navigation Sidebar -->
+            <div class="w-full md:w-64 bg-gray-50 dark:bg-gray-900/60 p-3 border-b md:border-b-0 md:border-r border-gray-200 dark:border-gray-800 shrink-0 flex flex-row md:flex-col justify-between overflow-x-auto md:overflow-y-auto">
+                <div>
+                    <div class="px-3 py-2 font-black text-wa-light text-sm hidden md:flex items-center gap-2">
+                        <i class="fa-solid fa-gear"></i> Pengaturan Lengkap
+                    </div>
+                    <nav class="flex md:flex-col gap-1 mt-1">
+                        <button onclick="switchSettingsTab('profile')" id="tabBtn-profile" class="tab-btn w-full px-3 py-2.5 rounded-xl font-bold flex items-center gap-2.5 transition text-left text-wa-light bg-emerald-50 dark:bg-emerald-950/40">
+                            <i class="fa-solid fa-user w-4 text-center"></i> Profil & Akun
+                        </button>
+                        <button onclick="switchSettingsTab('privacy')" id="tabBtn-privacy" class="tab-btn w-full px-3 py-2.5 rounded-xl font-bold flex items-center gap-2.5 transition text-left text-gray-600 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-800">
+                            <i class="fa-solid fa-lock w-4 text-center"></i> Privasi & Keamanan
+                        </button>
+                        <button onclick="switchSettingsTab('chats')" id="tabBtn-chats" class="tab-btn w-full px-3 py-2.5 rounded-xl font-bold flex items-center gap-2.5 transition text-left text-gray-600 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-800">
+                            <i class="fa-solid fa-message w-4 text-center"></i> Chat, Font & Wallpaper
+                        </button>
+                        <button onclick="switchSettingsTab('notifications')" id="tabBtn-notifications" class="tab-btn w-full px-3 py-2.5 rounded-xl font-bold flex items-center gap-2.5 transition text-left text-gray-600 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-800">
+                            <i class="fa-solid fa-bell w-4 text-center"></i> Notifikasi & Suara
+                        </button>
+                        <button onclick="switchSettingsTab('storage')" id="tabBtn-storage" class="tab-btn w-full px-3 py-2.5 rounded-xl font-bold flex items-center gap-2.5 transition text-left text-gray-600 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-800">
+                            <i class="fa-solid fa-database w-4 text-center"></i> Data & Penyimpanan
+                        </button>
+                        <button onclick="switchSettingsTab('shortcuts')" id="tabBtn-shortcuts" class="tab-btn w-full px-3 py-2.5 rounded-xl font-bold flex items-center gap-2.5 transition text-left text-gray-600 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-800">
+                            <i class="fa-solid fa-keyboard w-4 text-center"></i> Pintasan Keyboard
+                        </button>
+                        <button onclick="switchSettingsTab('help')" id="tabBtn-help" class="tab-btn w-full px-3 py-2.5 rounded-xl font-bold flex items-center gap-2.5 transition text-left text-gray-600 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-800">
+                            <i class="fa-solid fa-circle-question w-4 text-center"></i> Bantuan & Tentang
+                        </button>
+                    </nav>
+                </div>
+                
+                <div class="hidden md:block pt-3 border-t border-gray-200 dark:border-gray-800">
+                    <button onclick="logoutSim()" class="w-full px-3 py-2 bg-red-100 dark:bg-red-950/40 text-red-600 dark:text-red-400 font-bold rounded-xl text-xs hover:bg-red-200 transition flex items-center justify-center gap-2">
+                        <i class="fa-solid fa-right-from-bracket"></i> Ganti SIM / Keluar
+                    </button>
+                </div>
+            </div>
+
+            <!-- Tab Content Panel -->
+            <div class="flex-1 flex flex-col h-full overflow-hidden bg-white dark:bg-wa-panelDark">
+                
+                <!-- Modal Header -->
+                <div class="p-4 border-b border-gray-200 dark:border-gray-800 flex justify-between items-center shrink-0">
+                    <h3 id="settingsTabTitle" class="font-bold text-gray-900 dark:text-white text-base flex items-center gap-2">
+                        <i class="fa-solid fa-user text-wa-light"></i> Profil & Akun
+                    </h3>
+                    <button onclick="closeSettingsModal()" class="text-gray-400 hover:text-gray-600 dark:hover:text-white p-1 rounded-full"><i class="fa-solid fa-xmark text-lg"></i></button>
+                </div>
+
+                <!-- Scrollable Body -->
+                <div class="flex-1 overflow-y-auto p-5 space-y-5">
+                    
+                    <!-- TAB 1: PROFIL & AKUN -->
+                    <div id="tabContent-profile" class="space-y-4">
+                        <div class="flex items-center gap-4 p-4 bg-gray-50 dark:bg-gray-800/60 rounded-2xl border border-gray-100 dark:border-gray-800">
+                            <div class="relative group cursor-pointer" onclick="triggerAvatarUpload()">
+                                <img id="settingsAvatarPreview" src="https://placehold.co/100x100" class="w-16 h-16 rounded-full object-cover ring-2 ring-wa-light">
+                                <div class="absolute inset-0 bg-black/40 rounded-full flex items-center justify-center opacity-0 group-hover:opacity-100 transition text-white text-xs font-bold">
+                                    <i class="fa-solid fa-camera"></i>
+                                </div>
+                            </div>
+                            <div class="min-w-0 flex-1">
+                                <button onclick="triggerAvatarUpload()" class="text-xs text-wa-light font-bold hover:underline mb-0.5 block">Ubah Foto Profil</button>
+                                <span id="settingSimDisplay" class="text-[11px] text-gray-500 dark:text-gray-400 font-medium block truncate">Provider SIM</span>
+                            </div>
+                        </div>
+
+                        <div>
+                            <label class="block text-[11px] font-bold text-gray-600 dark:text-gray-400 mb-1">Nama Profil</label>
+                            <input type="text" id="settingProfileName" class="w-full px-3.5 py-2.5 rounded-xl border border-gray-300 dark:border-gray-600 bg-gray-50 dark:bg-gray-800 text-gray-900 dark:text-white font-medium focus:ring-2 focus:ring-wa-light">
+                        </div>
+
+                        <div>
+                            <label class="block text-[11px] font-bold text-gray-600 dark:text-gray-400 mb-1">Info / Bio Status</label>
+                            <input type="text" id="settingProfileStatus" class="w-full px-3.5 py-2.5 rounded-xl border border-gray-300 dark:border-gray-600 bg-gray-50 dark:bg-gray-800 text-gray-900 dark:text-white font-medium focus:ring-2 focus:ring-wa-light">
+                        </div>
+
+                        <div>
+                            <label class="block text-[11px] font-bold text-gray-600 dark:text-gray-400 mb-1">Nomor Handphone Terverifikasi</label>
+                            <input type="text" id="settingProfilePhone" readonly class="w-full px-3.5 py-2.5 rounded-xl border border-gray-200 dark:border-gray-700 bg-gray-100 dark:bg-gray-900/50 text-gray-500 font-medium cursor-not-allowed">
+                        </div>
+                    </div>
+
+                    <!-- TAB 2: PRIVASI & KEAMANAN -->
+                    <div id="tabContent-privacy" class="hidden space-y-4">
+                        <div>
+                            <label class="block text-[11px] font-bold text-gray-600 dark:text-gray-400 mb-1">Terakhir Dilihat (Last Seen) & Online</label>
+                            <select id="privacyLastSeen" class="w-full px-3.5 py-2.5 rounded-xl border border-gray-300 dark:border-gray-600 bg-gray-50 dark:bg-gray-800 text-gray-900 dark:text-white font-medium">
+                                <option value="everyone">Semua Orang</option>
+                                <option value="contacts">Kontak Saya</option>
+                                <option value="nobody">Tidak Ada</option>
+                            </select>
+                        </div>
+                        <div>
+                            <label class="block text-[11px] font-bold text-gray-600 dark:text-gray-400 mb-1">Foto Profil Dapat Dilihat Oleh</label>
+                            <select id="privacyProfilePhoto" class="w-full px-3.5 py-2.5 rounded-xl border border-gray-300 dark:border-gray-600 bg-gray-50 dark:bg-gray-800 text-gray-900 dark:text-white font-medium">
+                                <option value="everyone">Semua Orang</option>
+                                <option value="contacts">Kontak Saya</option>
+                                <option value="nobody">Tidak Ada</option>
+                            </select>
+                        </div>
+                        <div class="flex items-center justify-between p-3 bg-gray-50 dark:bg-gray-800/60 rounded-xl">
+                            <div>
+                                <span class="font-bold text-gray-800 dark:text-gray-200 block">Laporan Dibaca (Read Receipts)</span>
+                                <span class="text-[10px] text-gray-400">Jika dimatikan, Anda tidak akan mengirim atau menerima tanda centang biru.</span>
+                            </div>
+                            <input type="checkbox" id="settingReadReceipts" checked class="w-4 h-4 accent-wa-light rounded">
+                        </div>
+                        <div class="flex items-center justify-between p-3 bg-gray-50 dark:bg-gray-800/60 rounded-xl">
+                            <div>
+                                <span class="font-bold text-gray-800 dark:text-gray-200 block">Kunci Aplikasi (Biometrik / PIN)</span>
+                                <span class="text-[10px] text-gray-400">Simulasikan penguncian kata sandi saat aplikasi dibuka.</span>
+                            </div>
+                            <input type="checkbox" id="settingAppLock" class="w-4 h-4 accent-wa-light rounded">
+                        </div>
+                    </div>
+
+                    <!-- TAB 3: CHAT, FONT & WALLPAPER -->
+                    <div id="tabContent-chats" class="hidden space-y-4">
+                        <div>
+                            <label class="block text-[11px] font-bold text-gray-600 dark:text-gray-400 mb-1">Pilih Jenis Font (Typography)</label>
+                            <select id="chatFontFamily" onchange="changeChatFontFamily(this.value)" class="w-full px-3.5 py-2.5 rounded-xl border border-gray-300 dark:border-gray-600 bg-gray-50 dark:bg-gray-800 text-gray-900 dark:text-white font-medium">
+                                <option value="'Plus Jakarta Sans', sans-serif">Plus Jakarta Sans (Modern Clean)</option>
+                                <option value="'Fira Code', monospace">Fira Code (Monospace Coding)</option>
+                                <option value="'Playfair Display', serif">Playfair Display (Klasik Elegan)</option>
+                                <option value="'Comic Neue', cursive">Comic Neue (Santai & Seru)</option>
+                            </select>
+                        </div>
+                        <div>
+                            <label class="block text-[11px] font-bold text-gray-600 dark:text-gray-400 mb-1">Ukuran Font Chat</label>
+                            <select id="chatFontSize" class="w-full px-3.5 py-2.5 rounded-xl border border-gray-300 dark:border-gray-600 bg-gray-50 dark:bg-gray-800 text-gray-900 dark:text-white font-medium">
+                                <option value="small">Kecil</option>
+                                <option value="medium" selected>Sedang (Default)</option>
+                                <option value="large">Besar</option>
+                            </select>
+                        </div>
+                        <div>
+                            <label class="block text-[11px] font-bold text-gray-600 dark:text-gray-400 mb-1">Wallpaper Latar Chat</label>
+                            <div class="flex items-center gap-3">
+                                <button onclick="triggerCustomWallpaperUpload()" class="px-4 py-2 bg-gray-200 dark:bg-gray-700 hover:bg-wa-light hover:text-white rounded-xl text-xs font-bold transition flex items-center gap-2">
+                                    <i class="fa-solid fa-image"></i> Unggah Gambar Wallpaper
+                                </button>
+                                <button onclick="resetChatWallpaper()" class="px-4 py-2 bg-gray-100 dark:bg-gray-800 text-red-500 rounded-xl text-xs font-bold hover:bg-red-50 transition">
+                                    Reset Default
+                                </button>
+                            </div>
+                        </div>
+                        <div class="flex items-center justify-between p-3 bg-gray-50 dark:bg-gray-800/60 rounded-xl">
+                            <div>
+                                <span class="font-bold text-gray-800 dark:text-gray-200 block">Kirim dengan Tombol Enter</span>
+                                <span class="text-[10px] text-gray-400">Tekan Enter pada keyboard untuk mengirim pesan instan.</span>
+                            </div>
+                            <input type="checkbox" id="settingEnterToSend" checked class="w-4 h-4 accent-wa-light rounded">
+                        </div>
+                    </div>
+
+                    <!-- TAB 4: NOTIFIKASI & SUARA -->
+                    <div id="tabContent-notifications" class="hidden space-y-4">
+                        <div class="flex items-center justify-between p-3 bg-gray-50 dark:bg-gray-800/60 rounded-xl">
+                            <div>
+                                <span class="font-bold text-gray-800 dark:text-gray-200 block">Suara Notifikasi Pesan</span>
+                                <span class="text-[10px] text-gray-400">Mainkan nada saat pesan masuk.</span>
+                            </div>
+                            <input type="checkbox" id="notifSound" checked class="w-4 h-4 accent-wa-light rounded">
+                        </div>
+                        <div class="flex items-center justify-between p-3 bg-gray-50 dark:bg-gray-800/60 rounded-xl">
+                            <div>
+                                <span class="font-bold text-gray-800 dark:text-gray-200 block">Pratinjau Pesan Pop-up</span>
+                                <span class="text-[10px] text-gray-400">Tampilkan isi pesan dalam pemberitahuan di atas layar.</span>
+                            </div>
+                            <input type="checkbox" id="notifPreview" checked class="w-4 h-4 accent-wa-light rounded">
+                        </div>
+                        <div>
+                            <label class="block text-[11px] font-bold text-gray-600 dark:text-gray-400 mb-1">Nada Dering Panggilan</label>
+                            <select id="callRingtone" class="w-full px-3.5 py-2.5 rounded-xl border border-gray-300 dark:border-gray-600 bg-gray-50 dark:bg-gray-800 text-gray-900 dark:text-white font-medium">
+                                <option value="default">WhatsApp Original Marimba</option>
+                                <option value="chime">Modern Chime</option>
+                                <option value="classic">Classic Bell</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <!-- TAB 5: DATA & PENYIMPANAN -->
+                    <div id="tabContent-storage" class="hidden space-y-4">
+                        <div class="p-4 bg-emerald-50 dark:bg-emerald-950/30 rounded-2xl border border-emerald-500/20 flex items-center justify-between">
+                            <div>
+                                <h4 class="font-bold text-xs sm:text-sm text-emerald-800 dark:text-emerald-300">Penyimpanan Pesan & Media</h4>
+                                <p class="text-[11px] text-emerald-600 dark:text-emerald-400 mt-0.5">Total Penggunaan: <span id="storageUsageSize" class="font-bold">2.4 MB</span> / 5 GB</p>
+                            </div>
+                            <button onclick="exportChatBackup()" class="px-3.5 py-2 bg-emerald-600 hover:bg-emerald-500 text-white rounded-xl text-xs font-bold shadow transition flex items-center gap-1.5">
+                                <i class="fa-solid fa-download"></i> Cadangkan Chat (Backup)
+                            </button>
+                        </div>
+                        <div>
+                            <label class="block text-[11px] font-bold text-gray-600 dark:text-gray-400 mb-1">Unduh Otomatis Media (Wi-Fi / Seluler)</label>
+                            <select id="autoDownloadMedia" class="w-full px-3.5 py-2.5 rounded-xl border border-gray-300 dark:border-gray-600 bg-gray-50 dark:bg-gray-800 text-gray-900 dark:text-white font-medium">
+                                <option value="all">Semua Media (Foto, Audio, Video, Dokumen)</option>
+                                <option value="photos">Foto Saja</option>
+                                <option value="none">Tidak Ada</option>
+                            </select>
+                        </div>
+                        <button onclick="clearAppCache()" class="w-full py-2.5 bg-gray-100 dark:bg-gray-800 text-red-600 dark:text-red-400 font-bold rounded-xl border border-gray-300 dark:border-gray-700 hover:bg-red-50 transition">
+                            <i class="fa-solid fa-trash-can mr-1"></i> Bersihkan Cache & Memori Sementara
+                        </button>
+                    </div>
+
+                    <!-- TAB 6: PINTASAN KEYBOARD -->
+                    <div id="tabContent-shortcuts" class="hidden space-y-3">
+                        <div class="text-xs text-gray-500 dark:text-gray-400 mb-2 font-medium">Daftar pintasan cepat yang didukung di WhatsApp Web:</div>
+                        <div class="grid grid-cols-2 gap-2 text-xs">
+                            <div class="p-2.5 bg-gray-50 dark:bg-gray-800/60 rounded-xl flex justify-between items-center">
+                                <span class="font-bold">Cari Chat</span>
+                                <kbd class="px-2 py-1 bg-gray-200 dark:bg-gray-700 rounded font-mono">Ctrl + F</kbd>
+                            </div>
+                            <div class="p-2.5 bg-gray-50 dark:bg-gray-800/60 rounded-xl flex justify-between items-center">
+                                <span class="font-bold">Chat Baru</span>
+                                <kbd class="px-2 py-1 bg-gray-200 dark:bg-gray-700 rounded font-mono">Ctrl + N</kbd>
+                            </div>
+                            <div class="p-2.5 bg-gray-50 dark:bg-gray-800/60 rounded-xl flex justify-between items-center">
+                                <span class="font-bold">Bisukan Chat</span>
+                                <kbd class="px-2 py-1 bg-gray-200 dark:bg-gray-700 rounded font-mono">Ctrl + Shift + M</kbd>
+                            </div>
+                            <div class="p-2.5 bg-gray-50 dark:bg-gray-800/60 rounded-xl flex justify-between items-center">
+                                <span class="font-bold">Pengaturan</span>
+                                <kbd class="px-2 py-1 bg-gray-200 dark:bg-gray-700 rounded font-mono">Ctrl + Alt + ,</kbd>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- TAB 7: BANTUAN & TENTANG -->
+                    <div id="tabContent-help" class="hidden space-y-4">
+                        <div class="p-4 bg-gray-50 dark:bg-gray-800/60 rounded-2xl text-center space-y-2">
+                            <div class="inline-flex items-center justify-center w-12 h-12 bg-wa-light text-white rounded-2xl text-2xl shadow">
+                                <i class="fa-brands fa-whatsapp"></i>
+                            </div>
+                            <h4 class="font-bold text-gray-900 dark:text-white">WhatsApp Web Ultra 2026 v4.2</h4>
+                            <p class="text-xs text-gray-500 dark:text-gray-400">Platform komunikasi aman dengan enkripsi ujung-ke-ujung virtual.</p>
+                        </div>
+                        <button onclick="showToast('Pusat Bantuan WhatsApp: Semua sistem berjalan normal.')" class="w-full py-2.5 bg-wa-light text-white font-bold rounded-xl text-xs hover:bg-emerald-600 shadow">
+                            Hubungi Pusat Bantuan
+                        </button>
+                    </div>
+
+                </div>
+
+                <!-- Modal Footer Save Action -->
+                <div class="p-3 bg-gray-50 dark:bg-gray-900/60 border-t border-gray-200 dark:border-gray-800 flex justify-end gap-2 shrink-0">
+                    <button onclick="closeSettingsModal()" class="px-4 py-2 bg-gray-200 dark:bg-gray-700 text-gray-700 dark:text-gray-300 rounded-xl font-bold text-xs">Tutup</button>
+                    <button onclick="saveProfileSettings()" class="px-5 py-2 bg-wa-light text-white rounded-xl font-bold text-xs hover:bg-emerald-600 shadow">Simpan Perubahan</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal Smart Camera Studio dengan Filter & Stiker -->
+    <div id="smartCameraModal" class="fixed inset-0 z-50 bg-black/80 backdrop-blur-md hidden flex items-center justify-center p-3 sm:p-5">
+        <div class="bg-gray-900 w-full max-w-lg rounded-3xl shadow-2xl border border-gray-800 flex flex-col overflow-hidden text-white">
+            <div class="p-4 bg-gray-950 flex justify-between items-center border-b border-gray-800">
+                <h3 class="font-bold flex items-center gap-2 text-sm sm:text-base text-purple-400">
+                    <i class="fa-solid fa-camera-retro"></i> Studio Kamera & Filter Unik
+                </h3>
+                <button onclick="closeSmartCameraModal()" class="text-gray-400 hover:text-white p-1"><i class="fa-solid fa-xmark text-xl"></i></button>
+            </div>
+            
+            <div class="relative w-full aspect-4/3 bg-black flex items-center justify-center overflow-hidden">
+                <video id="cameraVideo" autoplay playsinline class="w-full h-full object-cover"></video>
+                <canvas id="cameraCanvas" class="w-full h-full object-cover hidden"></canvas>
+            </div>
+
+            <!-- Toolbar Filter -->
+            <div class="p-3 bg-gray-900 border-t border-gray-800 flex gap-2 overflow-x-auto text-xs shrink-0">
+                <button onclick="applyCameraFilter('none')" class="px-3 py-1 bg-gray-800 hover:bg-gray-700 rounded-lg text-white font-semibold shrink-0">Normal</button>
+                <button onclick="applyCameraFilter('filter-sepia')" class="px-3 py-1 bg-amber-900/60 hover:bg-amber-800 rounded-lg text-amber-200 font-semibold shrink-0">Sepia</button>
+                <button onclick="applyCameraFilter('filter-cyber')" class="px-3 py-1 bg-cyan-900/60 hover:bg-cyan-800 rounded-lg text-cyan-200 font-semibold shrink-0">Cyberpunk</button>
+                <button onclick="applyCameraFilter('filter-vintage')" class="px-3 py-1 bg-orange-900/60 hover:bg-orange-800 rounded-lg text-orange-200 font-semibold shrink-0">Vintage</button>
+                <button onclick="applyCameraFilter('filter-grayscale')" class="px-3 py-1 bg-gray-700 hover:bg-gray-600 rounded-lg text-gray-200 font-semibold shrink-0">B&W</button>
+                <button onclick="applyCameraFilter('filter-vivid')" class="px-3 py-1 bg-pink-900/60 hover:bg-pink-800 rounded-lg text-pink-200 font-semibold shrink-0">Vivid</button>
+            </div>
+
+            <div class="p-4 bg-gray-950 border-t border-gray-800 flex justify-between items-center">
+                <button onclick="closeSmartCameraModal()" class="px-4 py-2 bg-gray-800 hover:bg-gray-700 text-gray-300 font-bold rounded-xl text-xs">Batal</button>
+                <button id="snapPhotoBtn" onclick="takeCameraSnap()" class="px-5 py-2.5 bg-purple-600 hover:bg-purple-500 text-white font-bold rounded-xl text-xs shadow flex items-center gap-1.5">
+                    <i class="fa-solid fa-camera"></i> Ambil Foto
+                </button>
+                <button id="sendPhotoBtn" onclick="sendCameraPhotoToChat()" class="px-5 py-2.5 bg-emerald-600 hover:bg-emerald-500 text-white font-bold rounded-xl text-xs shadow hidden flex items-center gap-1.5">
+                    <i class="fa-solid fa-paper-plane"></i> Kirim ke Chat
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Screen Share Modal -->
+    <div id="screenShareModal" class="fixed inset-0 z-50 bg-black/90 backdrop-blur-md hidden flex flex-col items-center justify-between p-6 text-white">
+        <div class="w-full flex justify-between items-center max-w-4xl">
+            <h3 class="font-bold text-blue-400 flex items-center gap-2"><i class="fa-solid fa-desktop"></i> Berbagi Layar (Screen Share)</h3>
+            <button onclick="stopScreenShare()" class="px-4 py-2 bg-red-600 hover:bg-red-700 rounded-xl text-xs font-bold">Tutup Bagikan Layar</button>
+        </div>
+        <div class="flex-1 w-full max-w-4xl flex items-center justify-center my-4 overflow-hidden rounded-2xl border border-gray-800 bg-black">
+            <video id="screenShareVideo" autoplay playsinline class="max-h-full max-w-full object-contain"></video>
+        </div>
+        <div class="flex gap-3">
+            <button onclick="sendScreenCaptureToChat()" class="px-5 py-2.5 bg-emerald-600 hover:bg-emerald-500 rounded-xl text-xs font-bold shadow flex items-center gap-2">
+                <i class="fa-solid fa-camera"></i> Kirim Tangkapan Layar ke Chat
+            </button>
+        </div>
+    </div>
+
+    <!-- Call Overlay Modal -->
+    <div id="callModal" class="fixed inset-0 z-50 bg-black/90 backdrop-blur-lg hidden flex flex-col items-center justify-between p-6 text-white">
+        <div class="text-center mt-8">
+            <span id="callTypeLabel" class="text-xs uppercase font-extrabold tracking-widest text-emerald-400 block mb-2">Panggilan Suara WhatsApp</span>
+            <h2 id="callContactName" class="text-2xl font-black">Nama Kontak</h2>
+            <span id="callTimer" class="text-xs text-gray-400 font-mono mt-1 block">Menghubungkan...</span>
+        </div>
+
+        <div class="relative my-auto">
+            <div class="w-32 h-32 rounded-full overflow-hidden ring-4 ring-emerald-500/50 shadow-2xl animate-pulse">
+                <img id="callContactAvatar" src="" class="w-full h-full object-cover">
+            </div>
+        </div>
+
+        <div class="flex items-center gap-6 mb-8">
+            <button onclick="toggleCallMute(this)" class="w-12 h-12 rounded-full bg-gray-800 hover:bg-gray-700 flex items-center justify-center text-lg text-white transition"><i class="fa-solid fa-microphone"></i></button>
+            <button onclick="endActiveCall()" class="w-16 h-16 rounded-full bg-red-600 hover:bg-red-700 flex items-center justify-center text-2xl text-white shadow-lg transition"><i class="fa-solid fa-phone-slash"></i></button>
+            <button onclick="toggleCallSpeaker(this)" class="w-12 h-12 rounded-full bg-gray-800 hover:bg-gray-700 flex items-center justify-center text-lg text-white transition"><i class="fa-solid fa-volume-high"></i></button>
+        </div>
+    </div>
+
+    <script>
+        let currentUser = {
+            name: 'Pengguna Canggih',
+            phone: '+62 81299998888',
+            provider: 'Telkomsel (+62 812)',
+            status: 'Ada di WhatsApp',
+            avatar: 'https://placehold.co/100x100/00a884/ffffff?text=P',
+            myStatusText: null
+        };
+
+        let activeContactId = null;
+        let cameraStream = null;
+        let screenStream = null;
+        let cameraCapturedImage = null;
+        let recordInterval = null;
+        let recordSeconds = 0;
+        let callInterval = null;
+        let callSeconds = 0;
+        let currentFilter = 'none';
+
+        let statuses = [
+            { id: 101, name: 'Andi Pratama', avatar: 'https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?w=100', time: '10 menit yang lalu', text: 'Sedang menikmati kopi pagi ☕' },
+            { id: 102, name: 'Siti Rahmawati', avatar: 'https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=100', time: '1 jam yang lalu', text: 'Kerja keras bagaikan kuda! 💻🔥' }
+        ];
+
+        let contacts = [
+            {
+                id: 1,
+                name: 'Andi Pratama',
+                phone: '+62 812-3456-7890',
+                avatar: 'https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?w=100',
+                online: true,
+                isGroup: false,
+                messages: [
+                    { sender: 'them', text: 'Halo! Bagaimana kabar proyek kita?', time: '10:00' },
+                    { sender: 'me', text: 'Halo Andi, semua berjalan lancar!', time: '10:02' }
+                ]
+            },
+            {
+                id: 2,
+                name: 'Siti Rahmawati',
+                phone: '+62 856-9876-5432',
+                avatar: 'https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=100',
+                online: false,
+                isGroup: false,
+                messages: [
+                    { sender: 'them', text: 'Pesan sudah saya terima ya.', time: 'Kemarin' }
+                ]
+            }
+        ];
+
+        let availableFonts = [
+            "'Plus Jakarta Sans', sans-serif",
+            "'Fira Code', monospace",
+            "'Playfair Display', serif",
+            "'Comic Neue', cursive"
+        ];
+        let currentFontIndex = 0;
+
+        function showToast(msg) {
+            const toast = document.getElementById('toast');
+            if (!toast) return;
+            toast.textContent = msg;
+            toast.classList.remove('hidden');
+            setTimeout(() => {
+                toast.classList.add('hidden');
+            }, 2500);
+        }
+
+        function handleSimLogin() {
+            const providerSelect = document.getElementById('simProvider');
+            const phoneInput = document.getElementById('phoneNumberInput');
+            const nameInput = document.getElementById('profileNameInput');
+
+            const provider = providerSelect ? providerSelect.value : 'Telkomsel (+62 812)';
+            const phoneNum = phoneInput ? phoneInput.value.trim() : '81299998888';
+            const profileName = nameInput ? nameInput.value.trim() : 'Pengguna Canggih';
+
+            if (!phoneNum) {
+                showToast('Masukkan nomor telepon SIM terlebih dahulu!');
+                return;
+            }
+
+            currentUser.provider = provider;
+            currentUser.phone = '+62 ' + phoneNum;
+            currentUser.name = profileName || 'Pengguna Canggih';
+            currentUser.avatar = `https://placehold.co/100x100/00a884/ffffff?text=${encodeURIComponent(currentUser.name.charAt(0).toUpperCase())}`;
+
+            document.getElementById('currentUserNameDisplay').textContent = currentUser.name;
+            document.getElementById('currentUserStatusDisplay').textContent = currentUser.provider;
+            document.getElementById('userAvatar').src = currentUser.avatar;
+            document.getElementById('myStatusAvatar').src = currentUser.avatar;
+
+            document.getElementById('loginView').classList.add('hidden');
+            document.getElementById('mainView').classList.remove('hidden');
+            document.getElementById('mainView').classList.add('flex');
+
+            renderContacts();
+            renderStatuses();
+            showToast(`SIM Card (${provider}) Berhasil Diverifikasi! Selamat Datang.`);
+        }
+
+        function logoutSim() {
+            document.getElementById('mainView').classList.remove('flex');
+            document.getElementById('mainView').classList.add('hidden');
+            document.getElementById('loginView').classList.remove('hidden');
+            showToast('Berhasil keluar / Ganti SIM.');
+        }
+
+        function switchSidebarView(tab) {
+            const chatBtn = document.getElementById('tabChatBtn');
+            const statusBtn = document.getElementById('tabStatusBtn');
+            const contactList = document.getElementById('contactList');
+            const statusList = document.getElementById('statusList');
+            const searchBar = document.getElementById('searchBarContainer');
+
+            if (tab === 'chats') {
+                chatBtn.className = "flex-1 py-2.5 font-bold text-xs text-wa-light border-b-2 border-wa-light transition flex items-center justify-center gap-1.5";
+                statusBtn.className = "flex-1 py-2.5 font-bold text-xs text-gray-500 dark:text-gray-400 border-b-2 border-transparent transition flex items-center justify-center gap-1.5 hover:text-wa-light";
+                contactList.classList.remove('hidden');
+                statusList.classList.add('hidden');
+                searchBar.classList.remove('hidden');
+            } else {
+                statusBtn.className = "flex-1 py-2.5 font-bold text-xs text-wa-light border-b-2 border-wa-light transition flex items-center justify-center gap-1.5";
+                chatBtn.className = "flex-1 py-2.5 font-bold text-xs text-gray-500 dark:text-gray-400 border-b-2 border-transparent transition flex items-center justify-center gap-1.5 hover:text-wa-light";
+                contactList.classList.add('hidden');
+                statusList.classList.remove('hidden');
+                searchBar.classList.add('hidden');
+            }
+        }
+
+        function renderContacts() {
+            const container = document.getElementById('contactList');
+            if (!container) return;
+
+            const searchKey = document.getElementById('searchContact').value.toLowerCase();
+            const filtered = contacts.filter(c => c.name.toLowerCase().includes(searchKey) || c.phone.includes(searchKey));
+
+            if (filtered.length === 0) {
+                container.innerHTML = `<div class="p-6 text-center text-gray-400 text-xs">Tidak ada kontak ditemukan.</div>`;
+                return;
+            }
+
+            container.innerHTML = filtered.map(c => {
+                const lastMsg = c.messages.length > 0 ? c.messages[c.messages.length - 1].text : 'Belum ada pesan';
+                const time = c.messages.length > 0 ? c.messages[c.messages.length - 1].time : '';
+                const isActive = activeContactId === c.id ? 'bg-gray-100 dark:bg-gray-800' : '';
+
+                return `
+                    <div onclick="selectContact(${c.id})" class="flex items-center px-4 py-3 hover:bg-gray-50 dark:hover:bg-gray-800/50 cursor-pointer transition ${isActive}">
+                        <div class="relative mr-3 shrink-0">
+                            <img src="${c.avatar}" class="w-12 h-12 rounded-full object-cover shadow-sm">
+                            ${c.online ? '<span class="absolute bottom-0 right-0 w-3.5 h-3.5 bg-emerald-500 rounded-full border-2 border-white dark:border-wa-panelDark"></span>' : ''}
+                        </div>
+                        <div class="flex-1 min-w-0 border-b border-gray-100 dark:border-gray-800/60 pb-2">
+                            <div class="flex justify-between items-baseline mb-1">
+                                <h4 class="font-bold text-xs sm:text-sm text-gray-900 dark:text-white truncate">${c.name}</h4>
+                                <span class="text-[10px] text-gray-400 shrink-0">${time}</span>
+                            </div>
+                            <p class="text-xs text-gray-500 dark:text-gray-400 truncate">${lastMsg}</p>
+                        </div>
+                    </div>
+                `;
+            }).join('');
+        }
+
+        function renderStatuses() {
+            const container = document.getElementById('recentStatusContainer');
+            if (!container) return;
+
+            container.innerHTML = statuses.map(s => `
+                <div class="flex items-center p-3 hover:bg-gray-50 dark:hover:bg-gray-800/60 rounded-2xl cursor-pointer transition" onclick="viewStatus('${s.name}', '${s.text}', '${s.time}', '${s.avatar}')">
+                    <div class="relative mr-3 shrink-0">
+                        <img src="${s.avatar}" class="w-11 h-11 rounded-full object-cover ring-2 ring-emerald-500 p-0.5">
+                    </div>
+                    <div class="flex-1 min-w-0">
+                        <h4 class="font-bold text-xs sm:text-sm text-gray-900 dark:text-white truncate">${s.name}</h4>
+                        <p class="text-[11px] text-gray-500 dark:text-gray-400">${s.time}</p>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        function openAddStatusModal() {
+            document.getElementById('newStatusText').value = '';
+            document.getElementById('addStatusModal').classList.remove('hidden');
+        }
+
+        function closeAddStatusModal() {
+            document.getElementById('addStatusModal').classList.add('hidden');
+        }
+
+        function saveNewStatus() {
+            const txt = document.getElementById('newStatusText').value.trim();
+            if (!txt) {
+                showToast('Masukkan teks status!');
+                return;
+            }
+            currentUser.myStatusText = txt;
+            document.getElementById('myStatusText').textContent = txt;
+            closeAddStatusModal();
+            showToast('Status berhasil diperbarui!');
+        }
+
+        function viewStatus(name, text, time, avatar) {
+            showToast(`Status [${name}]: "${text}"`);
+        }
+
+        function filterContacts() {
+            renderContacts();
+        }
+
+        function selectContact(id) {
+            activeContactId = id;
+            const contact = contacts.find(c => c.id === id);
+            if (!contact) return;
+
+            const sidebar = document.getElementById('sidebarSection');
+            const chatArea = document.getElementById('chatAreaSection');
+
+            if (window.innerWidth < 768) {
+                sidebar.classList.add('hidden');
+                chatArea.classList.remove('hidden');
+                chatArea.classList.add('flex');
+            } else {
+                chatArea.classList.remove('hidden');
+                chatArea.classList.add('flex');
+            }
+
+            document.getElementById('chatInputArea').classList.remove('hidden');
+            document.getElementById('chatInputArea').classList.add('flex');
+
+            document.getElementById('activeChatName').textContent = contact.name;
+            document.getElementById('activeChatStatus').textContent = contact.isGroup ? contact.phone : (contact.online ? 'Online' : 'Terakhir dilihat baru saja');
+            document.getElementById('activeChatAvatar').src = contact.avatar;
+
+            renderMessages();
+            renderContacts();
+        }
+
+        function backToSidebar() {
+            document.getElementById('sidebarSection').classList.remove('hidden');
+            document.getElementById('chatAreaSection').classList.remove('flex');
+            document.getElementById('chatAreaSection').classList.add('hidden');
+            activeContactId = null;
+        }
+
+        function renderMessages() {
+            const container = document.getElementById('messagesContainer');
+            if (!activeContactId) return;
+            const contact = contacts.find(c => c.id === activeContactId);
+            if (!contact) return;
+
+            if (contact.messages.length === 0) {
+                container.innerHTML = `<div class="flex items-center justify-center h-full text-xs text-gray-400">Belum ada pesan. Mulai ketik di bawah!</div>`;
+                return;
+            }
+
+            container.innerHTML = contact.messages.map(m => {
+                const isMe = m.sender === 'me';
+                const bubbleBg = isMe ? 'bg-wa-bubbleOut dark:bg-wa-bubbleOutDark text-gray-900 dark:text-white ml-auto rounded-tl-xl rounded-tr-xl rounded-bl-xl' : 'bg-wa-bubbleIn dark:bg-wa-bubbleInDark text-gray-900 dark:text-white mr-auto rounded-tl-xl rounded-tr-xl rounded-br-xl';
+                
+                let contentHtml = '';
+                if (m.location) {
+                    contentHtml = `
+                        <div class="flex flex-col gap-2">
+                            <div class="flex items-center gap-2 font-bold text-red-500">
+                                <i class="fa-solid fa-location-dot text-base animate-bounce"></i>
+                                <span>Lokasi Terkini</span>
+                            </div>
+                            <div class="text-[11px] text-gray-600 dark:text-gray-300">Lat: ${m.location.lat}, Long: ${m.location.lng}</div>
+                            <a href="${m.location.url}" target="_blank" class="px-3 py-1.5 bg-wa-light hover:bg-emerald-600 text-white font-bold rounded-lg text-center text-xs shadow transition block mt-1">
+                                <i class="fa-solid fa-map-location-dot mr-1"></i> Buka Google Maps
+                            </a>
+                        </div>
+                    `;
+                } else {
+                    let imageHtml = m.image ? `<img src="${m.image}" class="rounded-xl max-w-full sm:max-w-xs mb-2 object-cover shadow-sm">` : '';
+                    contentHtml = `${imageHtml}<div class="pr-10 whitespace-pre-wrap break-words text-xs sm:text-sm">${m.text}</div>`;
+                }
+
+                return `
+                    <div class="flex w-full mb-1">
+                        <div class="max-w-[85%] sm:max-w-[70%] px-3 py-2 shadow-sm relative ${bubbleBg}">
+                            ${contentHtml}
+                            <span class="absolute bottom-1 right-2 text-[9px] text-gray-500 dark:text-gray-400 font-mono">${m.time}</span>
+                        </div>
+                    </div>
+                `;
+            }).join('');
+
+            container.scrollTop = container.scrollHeight;
+        }
+
+        function sendMessage() {
+            const input = document.getElementById('messageInput');
+            const text = input.value.trim();
+            if (!text || !activeContactId) return;
+
+            const contact = contacts.find(c => c.id === activeContactId);
+            if (!contact) return;
+
+            const timeNow = new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+            contact.messages.push({ sender: 'me', text: text, time: timeNow });
+            input.value = '';
+            renderMessages();
+            renderContacts();
+
+            setTimeout(() => {
+                contact.messages.push({ sender: 'them', text: `Balasan otomatis untuk: "${text}" 👍`, time: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }) });
+                renderMessages();
+                renderContacts();
+            }, 1500);
+        }
+
+        function shareCurrentLocation() {
+            if (!activeContactId) {
+                showToast('Pilih kontak terlebih dahulu!');
+                return;
+            }
+
+            if ("geolocation" in navigator) {
+                showToast('Mendapatkan lokasi Anda...');
+                navigator.geolocation.getCurrentPosition(
+                    (position) => {
+                        const lat = position.coords.latitude.toFixed(5);
+                        const lng = position.coords.longitude.toFixed(5);
+                        const mapsUrl = `https://maps.google.com/?q=${lat},${lng}`;
+                        
+                        const contact = contacts.find(c => c.id === activeContactId);
+                        if (contact) {
+                            contact.messages.push({
+                                sender: 'me',
+                                text: '📍 Berbagi Lokasi Saya',
+                                location: { lat: lat, lng: lng, url: mapsUrl },
+                                time: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })
+                            });
+                            renderMessages();
+                            renderContacts();
+                            showToast('Lokasi berhasil dibagikan!');
+                        }
+                    },
+                    (error) => {
+                        const lat = "-6.2088";
+                        const lng = "106.8456";
+                        const mapsUrl = `https://maps.google.com/?q=${lat},${lng}`;
+                        
+                        const contact = contacts.find(c => c.id === activeContactId);
+                        if (contact) {
+                            contact.messages.push({
+                                sender: 'me',
+                                text: '📍 Berbagi Lokasi (Simulasi)',
+                                location: { lat: lat, lng: lng, url: mapsUrl },
+                                time: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })
+                            });
+                            renderMessages();
+                            renderContacts();
+                            showToast('Lokasi simulasi berhasil dikirim!');
+                        }
+                    },
+                    { enableHighAccuracy: true, timeout: 5000, maximumAge: 0 }
+                );
+            } else {
+                showToast('Fitur GPS tidak didukung peramban.');
+            }
+        }
+
+        function handleMessageKeypress(e) {
+            const enterToSend = document.getElementById('settingEnterToSend') ? document.getElementById('settingEnterToSend').checked : true;
+            if (e.key === 'Enter' && enterToSend) {
+                e.preventDefault();
+                sendMessage();
+            }
+        }
+
+        function toggleEmojiPicker() {
+            document.getElementById('emojiPicker').classList.toggle('hidden');
+        }
+
+        function addEmoji(emoji) {
+            const input = document.getElementById('messageInput');
+            input.value += emoji;
+            input.focus();
+        }
+
+        function clearCurrentChat() {
+            if (!activeContactId) return;
+            const contact = contacts.find(c => c.id === activeContactId);
+            if (contact) {
+                contact.messages = [];
+                renderMessages();
+                renderContacts();
+                showToast('Riwayat obrolan dibersihkan.');
+            }
+        }
+
+        function deleteCurrentContact() {
+            if (!activeContactId) return;
+            contacts = contacts.filter(c => c.id !== activeContactId);
+            activeContactId = null;
+            document.getElementById('chatInputArea').classList.add('hidden');
+            document.getElementById('chatAreaSection').classList.add('hidden');
+            document.getElementById('sidebarSection').classList.remove('hidden');
+            renderContacts();
+            showToast('Kontak/Grup dihapus.');
+        }
+
+        function openAddContactModal() {
+            document.getElementById('newContactName').value = '';
+            document.getElementById('newContactPhone').value = '';
+            document.getElementById('addContactModal').classList.remove('hidden');
+        }
+
+        function closeAddContactModal() {
+            document.getElementById('addContactModal').classList.add('hidden');
+        }
+
+        function saveNewContact() {
+            const name = document.getElementById('newContactName').value.trim();
+            const phone = document.getElementById('newContactPhone').value.trim();
+            if (!name || !phone) {
+                showToast('Lengkapi nama dan nomor telepon!');
+                return;
+            }
+
+            const newContact = {
+                id: Date.now(),
+                name: name,
+                phone: phone,
+                avatar: `https://placehold.co/100x100/00a884/ffffff?text=${encodeURIComponent(name.charAt(0))}`,
+                online: true,
+                isGroup: false,
+                messages: [{ sender: 'them', text: `Halo, ini ${name} (${phone}) di WhatsApp.`, time: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }) }]
+            };
+
+            contacts.unshift(newContact);
+            renderContacts();
+            closeAddContactModal();
+            selectContact(newContact.id);
+            showToast(`Kontak ${name} berhasil disimpan!`);
+        }
+
+        function openNewGroupModal() {
+            document.getElementById('newGroupName').value = '';
+            document.getElementById('newGroupDesc').value = '';
+            document.getElementById('newGroupModal').classList.remove('hidden');
+        }
+
+        function closeNewGroupModal() {
+            document.getElementById('newGroupModal').classList.add('hidden');
+        }
+
+        function createNewGroup() {
+            const groupName = document.getElementById('newGroupName').value.trim();
+            const groupDesc = document.getElementById('newGroupDesc').value.trim();
+            if (!groupName) {
+                showToast('Mohon masukkan nama grup!');
+                return;
+            }
+
+            const newGroup = {
+                id: Date.now(),
+                name: groupName,
+                phone: groupDesc || 'Grup Obrolan WhatsApp',
+                avatar: `https://placehold.co/100x100/005c4b/ffffff?text=👥`,
+                online: true,
+                isGroup: true,
+                messages: [{ sender: 'them', text: `🎉 Grup "${groupName}" dibuat!\nDeskripsi: ${groupDesc || '-'}`, time: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }) }]
+            };
+
+            contacts.unshift(newGroup);
+            renderContacts();
+            closeNewGroupModal();
+            selectContact(newGroup.id);
+            showToast(`Grup "${groupName}" berhasil dibuat!`);
+        }
+
+        async function openSmartCameraModal() {
+            const modal = document.getElementById('smartCameraModal');
+            const video = document.getElementById('cameraVideo');
+            modal.classList.remove('hidden');
+            document.getElementById('cameraCanvas').classList.add('hidden');
+            video.classList.remove('hidden');
+            document.getElementById('snapPhotoBtn').classList.remove('hidden');
+            document.getElementById('sendPhotoBtn').classList.add('hidden');
+
+            try {
+                cameraStream = await navigator.mediaDevices.getUserMedia({ video: true, audio: false });
+                video.srcObject = cameraStream;
+            } catch (err) {
+                showToast('Kamera tidak dapat diakses.');
+            }
+        }
+
+        function closeSmartCameraModal() {
+            if (cameraStream) {
+                cameraStream.getTracks().forEach(t => t.stop());
+            }
+            document.getElementById('smartCameraModal').classList.add('hidden');
+        }
+
+        function applyCameraFilter(cls) {
+            document.getElementById('cameraVideo').className = `w-full h-full object-cover ${cls}`;
+            currentFilter = cls;
+        }
+
+        function takeCameraSnap() {
+            const video = document.getElementById('cameraVideo');
+            const canvas = document.getElementById('cameraCanvas');
+            const ctx = canvas.getContext('2d');
+            canvas.width = video.videoWidth || 640;
+            canvas.height = video.videoHeight || 480;
+            ctx.drawImage(video, 0, 0, canvas.width, canvas.height);
+            cameraCapturedImage = canvas.toDataURL('image/png');
+
+            video.classList.add('hidden');
+            canvas.classList.remove('hidden');
+            document.getElementById('snapPhotoBtn').classList.add('hidden');
+            document.getElementById('sendPhotoBtn').classList.remove('hidden');
+        }
+
+        function sendCameraPhotoToChat() {
+            if (!activeContactId) {
+                showToast('Pilih chat terlebih dahulu!');
+                closeSmartCameraModal();
+                return;
+            }
+            const contact = contacts.find(c => c.id === activeContactId);
+            if (contact && cameraCapturedImage) {
+                contact.messages.push({
+                    sender: 'me',
+                    text: '📷 Foto dari Kamera Studio',
+                    image: cameraCapturedImage,
+                    time: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })
+                });
+                renderMessages();
+                renderContacts();
+                closeSmartCameraModal();
+                showToast('Foto studio terkirim!');
+            }
+        }
+
+        function triggerVoiceCall() { startCall('Panggilan Suara'); }
+        function triggerVideoCall() { startCall('Panggilan Video'); }
+
+        function startCall(type) {
+            if (!activeContactId) {
+                showToast('Pilih kontak terlebih dahulu!');
+                return;
+            }
+            const contact = contacts.find(c => c.id === activeContactId);
+            if (!contact) return;
+
+            document.getElementById('callTypeLabel').textContent = type + ' WhatsApp';
+            document.getElementById('callContactName').textContent = contact.name;
+            document.getElementById('callContactAvatar').src = contact.avatar;
+            document.getElementById('callModal').classList.remove('hidden');
+
+            callSeconds = 0;
+            document.getElementById('callTimer').textContent = 'Menghubungkan...';
+            clearInterval(callInterval);
+            setTimeout(() => {
+                callInterval = setInterval(() => {
+                    callSeconds++;
+                    const m = String(Math.floor(callSeconds / 60)).padStart(2, '0');
+                    const s = String(callSeconds % 60).padStart(2, '0');
+                    document.getElementById('callTimer').textContent = `${m}:${s}`;
+                }, 1000);
+            }, 1200);
+        }
+
+        function endActiveCall() {
+            clearInterval(callInterval);
+            document.getElementById('callModal').classList.add('hidden');
+            showToast('Panggilan diakhiri');
+        }
+
+        function toggleCallMute(btn) {
+            btn.classList.toggle('bg-red-600');
+            showToast(btn.classList.contains('bg-red-600') ? 'Mikrofon dimatikan' : 'Mikrofon dinyalakan');
+        }
+
+        function toggleCallSpeaker(btn) {
+            btn.classList.toggle('text-emerald-400');
+        }
+
+        async function startScreenShare() {
+            try {
+                screenStream = await navigator.mediaDevices.getDisplayMedia({ video: true });
+                document.getElementById('screenShareVideo').srcObject = screenStream;
+                document.getElementById('screenShareModal').classList.remove('hidden');
+            } catch (e) {
+                showToast('Berbagi layar dibatalkan.');
+            }
+        }
+
+        function stopScreenShare() {
+            if (screenStream) screenStream.getTracks().forEach(t => t.stop());
+            document.getElementById('screenShareModal').classList.add('hidden');
+        }
+
+        function sendScreenCaptureToChat() {
+            if (!activeContactId) {
+                showToast('Pilih chat terlebih dahulu!');
+                return;
+            }
+            const video = document.getElementById('screenShareVideo');
+            const canvas = document.createElement('canvas');
+            canvas.width = video.videoWidth || 1280;
+            canvas.height = video.videoHeight || 720;
+            canvas.getContext('2d').drawImage(video, 0, 0, canvas.width, canvas.height);
+            const img = canvas.toDataURL('image/png');
+
+            const contact = contacts.find(c => c.id === activeContactId);
+            if (contact) {
+                contact.messages.push({
+                    sender: 'me',
+                    text: '🖥️ Tangkapan Berbagi Layar',
+                    image: img,
+                    time: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })
+                });
+                renderMessages();
+                renderContacts();
+                stopScreenShare();
+                showToast('Tangkapan layar terkirim!');
+            }
+        }
+
+        function quickToggleTextFont() {
+            currentFontIndex = (currentFontIndex + 1) % availableFonts.length;
+            document.body.style.fontFamily = availableFonts[currentFontIndex];
+            showToast(`Gaya Teks Diubah`);
+        }
+
+        function toggleDarkMode() {
+            document.documentElement.classList.toggle('dark');
+            const icon = document.getElementById('themeIcon');
+            icon.className = document.documentElement.classList.contains('dark') ? 'fa-solid fa-sun' : 'fa-solid fa-moon';
+        }
+
+        function setAppViewMode(mode) {
+            const box = document.getElementById('mainAppBox');
+            const notch = document.getElementById('notch');
+            if (mode === 'frame') {
+                box.className = "h-[92vh] w-[96%] max-w-[1200px] flex flex-col relative transition-all duration-300 rounded-[35px] border-[8px] border-gray-800 shadow-2xl overflow-hidden my-auto";
+                notch.classList.remove('hidden');
+                showToast('Mode Bingkai HP Aktif');
+            } else {
+                box.className = "h-full w-full flex flex-col relative transition-all duration-300";
+                notch.classList.add('hidden');
+                showToast('Mode Layar Penuh Aktif');
+            }
+        }
+
+        function openSettingsModal() {
+            document.getElementById('settingProfileName').value = currentUser.name;
+            document.getElementById('settingProfileStatus').value = currentUser.status;
+            document.getElementById('settingProfilePhone').value = currentUser.phone;
+            document.getElementById('settingSimDisplay').textContent = currentUser.provider;
+            document.getElementById('settingsAvatarPreview').src = currentUser.avatar;
+            document.getElementById('settingsModal').classList.remove('hidden');
+            switchSettingsTab('profile');
+        }
+
+        function openSettingsModalTab(tabName) {
+            openSettingsModal();
+            switchSettingsTab(tabName);
+        }
+
+        function closeSettingsModal() {
+            document.getElementById('settingsModal').classList.add('hidden');
+        }
+
+        function switchSettingsTab(tabName) {
+            ['profile', 'privacy', 'chats', 'notifications', 'storage', 'shortcuts', 'help'].forEach(t => {
+                const content = document.getElementById(`tabContent-${t}`);
+                const btn = document.getElementById(`tabBtn-${t}`);
+                if (content) content.classList.add('hidden');
+                if (btn) {
+                    btn.classList.remove('text-wa-light', 'bg-emerald-50', 'dark:bg-emerald-950/40');
+                    btn.classList.add('text-gray-600', 'dark:text-gray-400');
+                }
+            });
+
+            const activeContent = document.getElementById(`tabContent-${tabName}`);
+            const activeBtn = document.getElementById(`tabBtn-${tabName}`);
+            if (activeContent) activeContent.classList.remove('hidden');
+            if (activeBtn) {
+                activeBtn.classList.remove('text-gray-600', 'dark:text-gray-400');
+                activeBtn.classList.add('text-wa-light', 'bg-emerald-50', 'dark:bg-emerald-950/40');
+            }
+        }
+
+        function saveProfileSettings() {
+            currentUser.name = document.getElementById('settingProfileName').value || currentUser.name;
+            currentUser.status = document.getElementById('settingProfileStatus').value || currentUser.status;
+            document.getElementById('currentUserNameDisplay').textContent = currentUser.name;
+            document.getElementById('currentUserStatusDisplay').textContent = currentUser.status;
+            closeSettingsModal();
+            showToast('Profil dan pengaturan berhasil disimpan!');
+        }
+
+        function changeChatFontFamily(fontValue) {
+            document.body.style.fontFamily = fontValue;
+            showToast('Gaya font chat diperbarui.');
+        }
+
+        function triggerCustomWallpaperUpload() {
+            document.getElementById('customWallpaperInput').click();
+        }
+
+        function handleCustomWallpaperUpload(e) {
+            const file = e.target.files[0];
+            if (file) {
+                const reader = new FileReader();
+                reader.onload = function(evt) {
+                    const msgContainer = document.getElementById('messagesContainer');
+                    msgContainer.style.backgroundImage = `url(${evt.target.result})`;
+                    msgContainer.style.backgroundSize = 'cover';
+                    msgContainer.style.backgroundPosition = 'center';
+                    showToast('Wallpaper chat berhasil diterapkan!');
+                };
+                reader.readAsDataURL(file);
+            }
+        }
+
+        function resetChatWallpaper() {
+            const msgContainer = document.getElementById('messagesContainer');
+            msgContainer.style.backgroundImage = '';
+            showToast('Wallpaper dikembalikan ke default.');
+        }
+
+        function clearAppCache() {
+            localStorage.clear();
+            showToast('Cache dan data sementara berhasil dibersihkan!');
+        }
+
+        function exportChatBackup() {
+            const backupData = JSON.stringify({ user: currentUser, contacts: contacts }, null, 2);
+            const blob = new Blob([backupData], { type: 'application/json' });
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = `WhatsApp_Backup_${new Date().toISOString().slice(0, 10)}.json`;
+            a.click();
+            URL.revokeObjectURL(url);
+            showToast('Cadangan chat (backup) berhasil diunduh!');
+        }
+
+        function triggerAvatarUpload() {
+            document.getElementById('avatarFileInput').click();
+        }
+
+        function handleAvatarUpload(e) {
+            const file = e.target.files[0];
+            if (file) {
+                const reader = new FileReader();
+                reader.onload = function(evt) {
+                    currentUser.avatar = evt.target.result;
+                    document.getElementById('userAvatar').src = currentUser.avatar;
+                    document.getElementById('myStatusAvatar').src = currentUser.avatar;
+                    document.getElementById('settingsAvatarPreview').src = currentUser.avatar;
+                    showToast('Foto profil diperbarui!');
+                };
+                reader.readAsDataURL(file);
+            }
+        }
+
+        function toggleVoiceRecording() {
+            const bar = document.getElementById('voiceRecorderBar');
+            if (bar.classList.contains('hidden')) {
+                bar.classList.remove('hidden');
+                recordSeconds = 0;
+                document.getElementById('recordTimer').textContent = '00:00';
+                recordInterval = setInterval(() => {
+                    recordSeconds++;
+                    const m = String(Math.floor(recordSeconds / 60)).padStart(2, '0');
+                    const s = String(recordSeconds % 60).padStart(2, '0');
+                    document.getElementById('recordTimer').textContent = `${m}:${s}`;
+                }, 1000);
+            } else {
+                stopAndSendVoiceRecording();
+            }
+        }
+
+        function cancelVoiceRecording() {
+            clearInterval(recordInterval);
+            document.getElementById('voiceRecorderBar').classList.add('hidden');
+            showToast('Perekaman dibatalkan');
+        }
+
+        function stopAndSendVoiceRecording() {
+            clearInterval(recordInterval);
+            document.getElementById('voiceRecorderBar').classList.add('hidden');
+            if (!activeContactId) return;
+            const contact = contacts.find(c => c.id === activeContactId);
+            if (contact) {
+                const duration = document.getElementById('recordTimer').textContent;
+                contact.messages.push({
+                    sender: 'me',
+                    text: `🎤 *Pesan Suara* (${duration})`,
+                    time: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })
+                });
+                renderMessages();
+                renderContacts();
+                showToast('Pesan suara terkirim!');
+            }
+        }
+
+        function attachFileDialog() {
+            document.getElementById('attachmentInput').click();
+        }
+
+        function handleFileAttachment(e) {
+            const file = e.target.files[0];
+            if (file && activeContactId) {
+                const reader = new FileReader();
+                reader.onload = function(evt) {
+                    const contact = contacts.find(c => c.id === activeContactId);
+                    if (contact) {
+                        contact.messages.push({
+                            sender: 'me',
+                            text: `📎 Berkas: ${file.name}`,
+                            image: file.type.startsWith('image/') ? evt.target.result : null,
+                            time: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })
+                        });
+                        renderMessages();
+                        renderContacts();
+                        showToast('File berhasil dikirim!');
+                    }
+                };
+                if (file.type.startsWith('image/')) {
+                    reader.readAsDataURL(file);
+                } else {
+                    const contact = contacts.find(c => c.id === activeContactId);
+                    if (contact) {
+                        contact.messages.push({
+                            sender: 'me',
+                            text: `📎 Lampiran Dokumen: ${file.name} (${Math.round(file.size/1024)} KB)`,
+                            time: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })
+                        });
+                        renderMessages();
+                        renderContacts();
+                        showToast('Dokumen terkirim!');
+                    }
+                }
+            }
+        }
+    </script>
 </body>
 </html>
+```
